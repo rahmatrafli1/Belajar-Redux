@@ -1,19 +1,20 @@
 import React from "react";
 import AddProduct from "./components/AddProduct";
 import ShowProduct from "./components/ShowProduct";
+import EditProduct from "./components/EditProduct";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="container">
-      <div className="columns">
-        <div className="column">
-          <AddProduct />
-        </div>
-        <div className="column">
-          <ShowProduct />
-        </div>
+    <Router>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<ShowProduct />} />
+          <Route path="/add" element={<AddProduct />} />
+          <Route path="/edit/:id" element={<EditProduct />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
