@@ -1,18 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
+import axios from "axios";
 
+export const getProducts = createAsyncThunk(
+  "products/getProducts",
+  async () => {
+    const res = await axios.get("http://localhost:4000/products");
+    return res.data;
+  }
+);
+
+const productEntity = createEntityAdapter({
+  selectId: (product) => product.id,
+});
 const ProductSlice = createSlice({
   name: "product",
-  initialState: {
-    title: "Product1",
-    price: "123",
-  },
-  reducers: {
-    update: (state, action) => {
-      state.title = action.payload.title;
-      state.price = action.payload.price;
+  initialState: productEntity.getInitialState(),
+  extraReducers: {
+    [getProducts.fulfilled]: (state, action) => {
+      productEntity.setAll(state, action.payload);
     },
   },
 });
 
-export const { update } = ProductSlice.actions;
+export const productSelector = productEntity.getSelectors(
+  (state) => state.product
+);
 export default ProductSlice.reducer;

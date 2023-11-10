@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { update } from "../features/ProductSlice";
+import { Link } from "react-router-dom";
 
 const EditProduct = () => {
   const [title, setTitle] = useState("");
@@ -8,14 +8,9 @@ const EditProduct = () => {
 
   const dispatch = useDispatch();
 
-  const updateProduct = (e) => {
-    e.preventDefault();
-    dispatch(update({ title, price }));
-  };
-
   return (
     <div>
-      <form onSubmit={updateProduct} className="box mt-5">
+      <form className="box mt-5">
         <div className="field">
           <label htmlFor="title" className="label">
             Title
@@ -48,6 +43,9 @@ const EditProduct = () => {
         </div>
         <div className="field">
           <button className="button is-success">Update</button>
+          <Link to="/" className="button is-danger">
+            Back
+          </Link>
         </div>
       </form>
     </div>
