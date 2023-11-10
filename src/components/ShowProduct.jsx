@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts, productSelector } from "../features/ProductSlice";
+import {
+  getProducts,
+  productSelector,
+  deleteProducts,
+} from "../features/ProductSlice";
 import { Link } from "react-router-dom";
 
 const ShowProduct = () => {
@@ -37,7 +41,12 @@ const ShowProduct = () => {
                   >
                     Edit
                   </Link>
-                  <button className="button is-danger is-small">Delete</button>
+                  <button
+                    onClick={() => dispatch(deleteProducts(product.id))}
+                    className="button is-danger is-small"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
